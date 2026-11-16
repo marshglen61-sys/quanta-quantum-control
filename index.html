@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050810">
+<meta name="description" content="QUANTA — Quantum Control. An abstract strategy game of particles, clusters, boundaries and control. Play free in your browser.">
+<title>QUANTA — Quantum Control</title>
+<style>
+:root{color-scheme:dark;--bg:#050810;--panel:#091426;--blue:#1fb8ff;--green:#32e66a;--purple:#c23cff;--gold:#e8d34c;--text:#f1f5ff;--muted:#aebbd0}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -12%,#18265b 0,#080d1c 42%,var(--bg) 76%);color:var(--text);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+a{color:inherit}
+.wrap{width:min(100% - 32px,1060px);margin:auto}
+header{padding:22px 0 12px;text-align:center}
+.brand{display:block;width:min(100%,610px);height:auto;margin:0 auto 8px;filter:drop-shadow(0 0 16px #174c9c)}
+.kicker{color:#b8c8ed;letter-spacing:.22em;text-transform:uppercase;font-size:.78rem}
+.hero{padding:24px 0 42px;text-align:center}
+h1{font-size:clamp(2rem,6vw,4.3rem);line-height:1.02;letter-spacing:.025em;margin:10px 0 14px;font-weight:900}
+h1 span{background:linear-gradient(90deg,#fff,#9ecbff 48%,#fff);background-clip:text;color:transparent}
+.tagline{font-size:clamp(1rem,2.8vw,1.35rem);color:#d7e2fa;max-width:650px;margin:0 auto 24px}
+.tagline strong{color:#42d9ff}
+.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:24px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 22px;border:2px solid var(--blue);border-radius:12px;background:#0a1b32;text-decoration:none;font-weight:800;box-shadow:0 0 18px #0872b866;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px);background:#102b4a}
+.btn.primary{border-color:var(--green);background:#09291c;box-shadow:0 0 20px #16c85b55}
+.btn.secondary{border-color:#a43aff;box-shadow:0 0 18px #a43aff55}
+.boardshot{display:block;width:min(100%,660px);margin:30px auto 0;border:1px solid #286ba4;border-radius:18px;box-shadow:0 0 32px #0b62a855;background:#080e1a}
+.section{padding:34px 0}
+.section h2{font-size:clamp(1.45rem,4vw,2.2rem);margin:0 0 10px;text-align:center}
+.section-intro{color:var(--muted);text-align:center;max-width:700px;margin:0 auto 24px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pillar{background:linear-gradient(145deg,#0c1b31,#070d18);border:1px solid #24466b;border-radius:15px;padding:20px}
+.pillar:nth-child(1){border-top:3px solid var(--green)}
+.pillar:nth-child(2){border-top:3px solid var(--purple)}
+.pillar:nth-child(3){border-top:3px solid var(--blue)}
+.pillar h3{margin:0 0 7px;font-size:1.1rem}
+.pillar p{margin:0;color:var(--muted)}
+.rule-banner{margin:26px auto 10px;padding:22px;border:1px solid #3d6d9c;border-radius:16px;background:#081426;text-align:center}
+.rule-banner .mantra{font-weight:900;line-height:1.7;letter-spacing:.035em}
+.mantra .one{color:#f5f7ff}.mantra .two{color:#36aaff}.mantra .three{color:#ff475f}.mantra .hold{color:#37e76a}
+footer{border-top:1px solid #1b3451;margin-top:28px;padding:24px 0 36px;text-align:center;color:#91a2bd;font-size:.9rem}
+footer a{color:#b8dfff}
+@media(max-width:700px){.wrap{width:min(100% - 22px,1060px)}.pillars{grid-template-columns:1fr}.hero{padding-top:12px}.pillar{padding:16px}.actions .btn{width:100%;max-width:420px}.brand{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <img class="brand" src="assets/quanta-brand-header.jpg" alt="QUANTA — Quantum Control official logo">
+  <div class="kicker">An abstract strategy game</div>
+</header>
+<main>
+  <section class="hero wrap">
+    <h1><span>CONTROL THE BOARD.</span></h1>
+    <p class="tagline">Build clusters. Shift particles. Manipulate boundaries. <strong>Master the field.</strong></p>
+    <div class="actions">
+      <a class="btn primary" href="play.html">PLAY QUANTA</a>
+      <a class="btn" href="play.html#learn">LEARN TO PLAY</a>
+      <a class="btn secondary" href="play.html#how">QUANTA IN ONE MINUTE</a>
+    </div>
+    <img class="boardshot" src="assets/official-rules-front.png" alt="Official QUANTA rules showing the 9 by 9 board, setup and movement rules" loading="lazy">
+  </section>
+
+  <section class="section wrap">
+    <h2>One game. Three principles.</h2>
+    <p class="section-intro">QUANTA is built around a small set of interacting ideas. Every move changes the balance of control across the board.</p>
+    <div class="pillars">
+      <article class="pillar"><h3>Clusters &amp; layers</h3><p>Particles form Clusters. The top contiguous same-colour group is the Dominant Layer and controls the Cluster.</p></article>
+      <article class="pillar"><h3>Shift or slide</h3><p>Each turn gives you two Moves. Shift a Particle or Moving Group, or Slide a neutral Boundary.</p></article>
+      <article class="pillar"><h3>Singularities</h3><p>Control at least three Singularities, declare QUANTA and try to hold your position until your next turn.</p></article>
+    </div>
+    <div class="rule-banner">
+      <div class="mantra"><span class="one">ONE LANDING RULE.</span><br><span class="two">TWO MOVES.</span> <span class="three">THREE SINGULARITIES.</span><br><span class="hold">HOLD TO WIN.</span> THAT'S QUANTA.</div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="rules">
+    <h2>Official rules</h2>
+    <p class="section-intro">The official two-sided rules reference, using the supplied QUANTA artwork and wording.</p>
+    <div class="actions">
+      <a class="btn" href="rules.html">VIEW OFFICIAL RULES</a>
+      <a class="btn" href="QUANTA-Official-Rules.pdf" download>DOWNLOAD RULES PDF</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">QUANTA — Quantum Control<br><a href="rules.html">Official Rules</a> &nbsp;·&nbsp; <a href="play.html">Play the game</a><br><span>Independent strategy game</span></div>
+</footer>
+</body>
+</html>
