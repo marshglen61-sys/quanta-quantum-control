@@ -1,0 +1,275 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Quanta</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,800&family=Barlow+Semi+Condensed:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050810;--cy:#1fb8ff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(120% 55% at 50% 0,#121a44,#050810 62%) fixed;color:#e9eef7;font:16px/1.35 'Barlow Semi Condensed',system-ui,sans-serif;min-height:100vh;padding:12px 10px 40px;-webkit-user-select:none;user-select:none}
+#app{max-width:600px;margin:0 auto}
+h1{font:italic 800 46px/1 'Barlow Condensed',sans-serif;letter-spacing:5px;margin:6px 0 0;text-align:center;color:#fff;text-shadow:0 0 18px #2a8bff}
+.sub{text-align:center;color:#8fb4ff;margin:2px 0 12px}
+.card{border:2px solid #1d5f9c;border-radius:14px;background:#08111f;padding:12px 14px;margin:10px 0;box-shadow:0 0 16px #0b3a73 inset}
+button{font:600 16px 'Barlow Semi Condensed',sans-serif;color:#fff;background:#0d1f3a;border:2px solid var(--cy);border-radius:10px;padding:9px 14px;margin:3px;cursor:pointer;box-shadow:0 0 10px #0b5d99}
+button:hover{background:#12305a}button:focus-visible{outline:3px solid #fff}
+button.on{background:#1b6bb3}button.go{border-color:#34e668;box-shadow:0 0 12px #1c9a41}
+.row{display:flex;flex-wrap:wrap;justify-content:center}
+.pls{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.pl{border:2px solid var(--c);border-radius:10px;padding:3px 9px;font-size:14px;opacity:.6}
+.pl.on{opacity:1;background:#0c1428;box-shadow:0 0 14px var(--c)}
+.pl b{color:var(--c)}
+.msg{text-align:center;min-height:42px;margin:8px 0;color:#d7f2ff}
+#bd{position:relative;width:min(92vw,560px);aspect-ratio:1;margin:14px auto;padding:0}
+.g{display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(9,1fr);width:100%;height:100%;border:2px solid #c99a3f;box-shadow:0 0 18px #6b4b12}
+.cell{position:relative;border:1px solid #1b2c4d;background:#0a1226;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.cell.fr{border-right:3px solid #c99a3f}.cell.fb{border-bottom:3px solid #c99a3f}
+.cell.s::before{content:"";position:absolute;width:24%;height:24%;background:#fff3;border-radius:2px}
+.cell.sel{background:#16315e;box-shadow:inset 0 0 0 3px #fff}
+.cell.dst{background:#0f3a2a;box-shadow:inset 0 0 0 3px #34e668}
+.d{width:62%;height:62%;border-radius:50%;box-shadow:0 0 9px #0008,inset 0 -4px 0 #0005,inset 0 3px 0 #fff4;z-index:1}
+.cell em{position:absolute;right:3px;top:1px;font:700 12px 'Barlow Semi Condensed';color:#fff;z-index:2;text-shadow:0 0 3px #000}
+.cell u{position:absolute;left:12%;right:12%;bottom:3px;height:4px;border-radius:2px;z-index:2}
+.pt{position:absolute;width:5%;height:5%;transform:translate(-50%,-50%);border-radius:3px;z-index:5;display:flex;align-items:center;justify-content:center;font:700 clamp(9px,2.4vw,13px) sans-serif;color:#111;padding:0}
+.pt.nd{background:#fff;border:2px solid #fff;box-shadow:0 0 10px #fff;cursor:pointer;border-radius:50%;width:4.4%;height:4.4%}.nob .pt.b{pointer-events:none}.stk{display:flex;flex-direction:column;gap:3px;align-items:center;margin:8px 0}.lay{width:130px;padding:3px 0;border-radius:8px;border:2px solid transparent;font:600 12px sans-serif;text-align:center;color:#111;min-height:22px}.lay[data-a]{cursor:pointer}.lay.in{border-color:#fff;box-shadow:0 0 10px #fff}.pt.hot{border-radius:50%;background:#34e66855;border:2px solid #34e668;cursor:pointer;width:5%;height:5%}
+.pt.fa{background:#ffffff1c;border:1px solid #ffffff44;cursor:pointer;border-radius:50%;width:4%;height:4%}
+.pt.b{background:#d8dae6;border:3px solid var(--c);cursor:pointer;box-shadow:0 0 8px var(--c)}
+.pt.b.sel{outline:3px solid #fff}
+.pt.b.st{border-width:4px}
+.ban{text-align:center;font:italic 800 34px 'Barlow Condensed',sans-serif;color:#7dff98;text-shadow:0 0 16px #1c9a41;margin:14px 0}
+ul{margin:6px 0 6px 18px;padding:0}li{margin:3px 0}details summary{cursor:pointer;color:#8fd8ff}
+.cell.hlo{box-shadow:inset 0 0 0 3px #ffd54a}.cell.hln{box-shadow:inset 0 0 0 3px #ffd54a,0 0 14px #ffd54a}.cell.hln .d{animation:pop .35s}.pt.ring{border:2px dashed #ffd54a;border-radius:50%;pointer-events:none;width:5%;height:5%}.pt.b.hln{outline:3px solid #ffd54a}@keyframes pop{0%{transform:scale(.3)}60%{transform:scale(1.25)}100%{transform:scale(1)}}.flash{animation:fl 1.4s}@keyframes fl{0%{color:#ffd54a;text-shadow:0 0 18px #ffd54a}100%{text-shadow:none}}button:disabled{opacity:.4;cursor:default}details.card div{margin:3px 0;font-size:14px}
+.qfl{position:fixed;left:0;right:0;top:34%;text-align:center;font:italic 800 clamp(48px,17vw,120px)/1 'Barlow Condensed',sans-serif;color:var(--c);letter-spacing:4px;text-shadow:0 0 6px #fff,0 0 14px var(--c),0 0 34px var(--c),0 0 80px var(--c);pointer-events:none;z-index:50;padding:16px 0;background:linear-gradient(90deg,transparent,#000b 18%,#000b 82%,transparent);animation:qf 2.4s both}.qfl small{display:block;font-size:.26em;letter-spacing:8px;color:#fff;text-shadow:0 0 10px var(--c);margin-top:6px}@keyframes qf{0%{opacity:0;transform:scale(2.6)}10%{opacity:1;transform:scale(1)}18%{opacity:.15}26%{opacity:1}36%{opacity:.25}44%,80%{opacity:1}100%{opacity:0;transform:scale(1.06)}}
+.cell.ho{box-shadow:inset 0 0 0 3px #ffd54a}.cell.hn{box-shadow:inset 0 0 0 3px #ffd54a,0 0 14px #ffd54a}.cell.ho1{box-shadow:inset 0 0 0 3px #5fe3ff}.cell.hn1{box-shadow:inset 0 0 0 3px #5fe3ff,0 0 14px #5fe3ff}.cell.hn .d{animation:pop .35s}.cell.hn0::after,.cell.hn1::after{position:absolute;left:3px;top:2px;width:17px;height:17px;border-radius:50%;font:800 12px/17px sans-serif;text-align:center;color:#000;z-index:3}.cell.hn0::after{content:'1';background:#ffd54a}.cell.hn1::after{content:'2';background:#5fe3ff}.pt.ring.r1{border-color:#5fe3ff}
+@media (prefers-reduced-motion:no-preference){.d{transition:transform .15s}.cell.sel .d{transform:scale(1.12)}}
+</style></head><body><div id="app"></div>
+<script>
+const C=['#b040ec','#3c5cff','#ff8014','#f6ce22'],N=['Purple','Blue','Orange','Yellow'];
+// starting Fields [player, fieldRow, fieldCol], taken from the setup diagrams
+const LAY={2:[[0,0,0],[0,0,1],[1,2,1],[1,2,2]],3:[[1,0,0],[1,0,1],[2,1,1],[2,1,2],[0,2,0],[0,2,1]],4:[[0,0,0],[0,0,1],[3,0,2],[3,1,2],[2,1,0],[2,2,0],[1,2,1],[1,2,2]]};
+let S=null;
+const $=e=>document.getElementById(e);
+function newGame(n,lvl){HIST=[];
+ const cells=Array.from({length:81},()=>[]);
+ LAY[n].forEach(([p,fr,fc])=>{for(let r=0;r<3;r++)for(let c=0;c<3;c++)cells[(fr*3+r)*9+fc*3+c].push(p)});
+ const per={2:9,3:7,4:5}[n];
+ S={n,cells,B:[],left:Array(n).fill(per),res:36-n*per,phase:'setup',turn:0,H:1,pend:null,view:null,bot:lvl?[1]:null,lvl:lvl||0,pl:null,bt:0,log:[],hl:null,tut:0,online:0,rev:0,decl:null,moves:0,sel:null,sb:null,moved:[],fin:0,cd:0,id:0,
+  msg:'Boundary phase: take turns placing Boundaries. White dots are Nodes: after placing on one you choose its height.'};
+}
+const cnt=p=>{let n=0;for(let r=1;r<9;r+=3)for(let c=1;c<9;c+=3){const t=S.cells[r*9+c];if(t.length&&t[t.length-1]===p)n++}return n};
+const domH=t=>{const x=t[t.length-1];let n=0;for(let i=t.length-1;i>=0&&t[i]===x;i--)n++;return n};
+const bAt=(x,y)=>S.B.find(b=>b.x===x&&b.y===y);
+function fieldN(r,c){const fr=r/3|0,fc=c/3|0;let n=0;for(let i=0;i<3;i++)for(let j=0;j<3;j++)if(S.cells[(fr*3+i)*9+fc*3+j].length)n++;return n}
+function blk(r,c,dr,dc){const h=(x,y)=>!!bAt(x,y);
+ if(dr&&dc)return h(c+(dc>0?1:0),r+(dr>0?1:0));
+ if(dc)return h(c+(dc>0?1:0),r)&&h(c+(dc>0?1:0),r+1);
+ return h(c,r+(dr>0?1:0))&&h(c+1,r+(dr>0?1:0))}
+function dests(r,c,k){const o=[],D=fieldN(r,c);
+ for(let dr=-1;dr<2;dr++)for(let dc=-1;dc<2;dc++){if(!dr&&!dc)continue;
+  let cr=r,cc=c,last=null,off=0;
+  for(let i=0;i<D;i++){if(blk(cr,cc,dr,dc))break;const nr=cr+dr,nc=cc+dc;
+   if(nr<0||nr>8||nc<0||nc>8){off=1;break}cr=nr;cc=nc;last=[cr,cc]}
+  if(off)o.push({off:1,dr,dc});
+  else if(last){const t=S.cells[last[0]*9+last[1]];if(!t.length||k>=domH(t))o.push({r:last[0],c:last[1]})}}
+ return o}
+function slides(b){const o=[];
+ [[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx,dy])=>{
+  const axis=dx?'x':'y',dir=dx||dy,major=dx?b.y%3===0:b.x%3===0,max=major?9:b.h;
+  if(b.mv&&b.mv.axis===axis&&b.mv.dir===-dir)return;
+  for(let i=1;i<=max;i++){const x=b.x+dx*i,y=b.y+dy*i;if(x<0||x>9||y<0||y>9||bAt(x,y))break;o.push({x,y,axis,dir})}});
+ return o}
+const movable=b=>b.st===null||b.st===S.turn;
+function hasMoves(p){
+ for(let i=0;i<81;i++){const t=S.cells[i];if(t.length&&t[t.length-1]===p)for(let k=1;k<=t.length;k++)if(dests(i/9|0,i%9,k).length)return 1}
+ return S.B.some(b=>(b.st===null||b.st===p)&&slides(b).length)}
+function startTurn(d=0){
+ const p=S.turn;S.B.forEach(b=>{if(b.st===p)b.st=null;b.mv=null});
+ S.moves=0;S.sel=null;S.sb=null;S.view=null;S.pl=null;S.moved=[];S.fin=0;S.cd=0;
+ if(S.decl&&S.decl.p===p){
+  if(cnt(p)>=3){S.phase='over';S.win=p;S.wm=N[p]+' declared QUANTA-'+S.decl.X+' and still controls '+cnt(p)+' Singularities (three are needed).';lg(N[p]+' wins!');snd([[523,.12],[659,.12],[784,.12],[1046,.35]]);return}
+  S.decl=null;S.msg=N[p]+' did not hold three Singularities. The declaration ends.'}
+ if(!hasMoves(p)){
+  S.msg=N[p]+' has no legal Move, so the turn is skipped.';
+  if(d>S.n){S.phase='over';S.win=-1;return}
+  S.turn=(p+1)%S.n;startTurn(d+1)}}
+function moveDone(){
+ if(S.les!==undefined){S.moves=0;S.sel=null;S.sb=null;S.view=null;S.tm++;S.moved.forEach(b=>b.st=0);S.moved=[];return}
+ S.moves++;S.sel=null;S.sb=null;S.view=null;
+ if(S.moves>=2||!hasMoves(S.turn))finish()}
+function finish(){
+ const rec=S.bot&&S.bot.includes(S.turn)?S.log.slice(-2).join(' '):'';
+ S.moved.forEach(b=>b.st=S.turn);
+ const p=S.turn,c=cnt(p);let m='',cd=0;
+ if(S.decl&&S.decl.p!==p){const dx=cnt(S.decl.p);
+  if(c>=3&&c===dx){m=N[p]+' matches '+N[S.decl.p]+' on '+c+' Singularities. The declaration is broken.';S.decl=null}
+  else if(most(p)&&c>dx){m=N[p]+' exceeds it with '+c+' Singularities and breaks the declaration. ';S.decl=null;cd=c}
+  else S.decl.X=dx}
+ else if(!S.decl&&most(p))cd=c;
+ if(cd){S.decl={p,X:cd};S.flash={p,X:cd,t:Date.now()};m+=N[p]+' declares QUANTA-'+cd+'. Hold three Singularities until your next turn.'}
+ S.msg=(rec?rec+' ':'')+m;if(m){lg(m);snd(cd?[[523,.09],[659,.09],[784,.09],[1047,.09],[784,.09],[1047,.09],[1319,.35]]:[[400,.12],[300,.2]],cd?'square':'triangle',cd?.2:.12)}S.turn=(p+1)%S.n;startTurn()}
+function adv(){S.left[S.turn]--;
+ if(S.left.every(v=>v===0)){S.phase='play';S.msg='';startTurn();return}
+ let t=S.turn;do{t=(t+1)%S.n}while(S.left[t]===0);S.turn=t}
+function place(x,y){
+ if(bAt(x,y))return;if(!isBot())push();
+ const node=x%3===0&&y%3===0,b={id:S.id++,x,y,h:1,st:null};S.B.push(b);S.msg='';
+ if(node&&S.res>0)S.pend=b.id;else adv()}
+function setH(h){const b=S.B.find(b=>b.id===S.pend);if(!b)return;if(h-1>S.res)h=1+S.res;b.h=h;S.res-=h-1;S.pend=null;adv()}
+function shift(o){if(!isBot()){push();S.hls=[]}
+ const{r,c,k}=S.sel,t=S.cells[r*9+c],g=t.splice(t.length-k,k),pl=N[S.turn];
+ (S.hls=S.hls||[]).push({a:[r,c],b:o.off?null:[o.r,o.c]});
+ if(o.off){S.msg=g.length+' Particle'+(g.length>1?'s':'')+' left the Grid and were removed.';lg(pl+' sent '+g.length+' off the Grid.');snd([[300,.12],[180,.22]])}
+ else{const tt=S.cells[o.r*9+o.c],bond=tt.length>0;tt.push(...g);S.msg='';lg(pl+(bond?' bonded ':' shifted ')+k+' to row '+(o.r+1)+', column '+(o.c+1)+'.');snd(bond?[[520,.08],[780,.14]]:[[440,.1]])}
+ moveDone()}
+function slide(b,o){if(!isBot()){push();S.hls=[]}(S.hls=S.hls||[]).push({p:[b.x,b.y],q:[o.x,o.y]});lg(N[S.turn]+' slid a Boundary to '+o.x+','+o.y+'.');snd([[330,.1]]);b.x=o.x;b.y=o.y;b.mv={axis:o.axis,dir:o.dir};if(!S.moved.includes(b))S.moved.push(b);S.msg='';moveDone()}
+document.addEventListener('click',e=>{
+ const el=e.target.closest('[data-a]');if(!el)return;
+ const a=el.dataset.a,d=el.dataset;
+ if(S&&S.phase!=='over'&&!['new','menu','mute','host','join'].includes(a)&&((S.bot&&S.bot.includes(S.turn))))return;
+ if(a==='undo'){undo();R();return}
+ if(a==='mute'){MUTE=!MUTE;R();return}
+ if(a==='new'){newGame(+d.n,+d.bot||0);if(d.tut)S.tut=1;R();return}
+ if(a==='menu'){S=null;M='home';R();return}
+ if(a==='m'){M=d.m;R();return}
+ if(a==='learn'){lesson(0);R();return}
+ if(a==='next'){lesson(S.les+1);R();return}
+ if(a==='redo'){lesson(S.les);R();return}
+ if(a==='share'){share();return}
+ if(!S)return;
+ if(a==='h')setH(+d.h);
+ else if(S.phase==='setup'){if(a==='pt'&&S.pend===null)place(+d.x,+d.y)}
+ else if(S.phase==='play'){
+  const sb=S.sb!==null?S.B.find(b=>b.id===S.sb):null;
+  if(a==='cell'){
+   const r=+d.r,c=+d.c,i=r*9+c,t=S.cells[i];S.tap=[r,c];
+   const ds=S.sel?dests(S.sel.r,S.sel.c,S.sel.k):[];
+   const hit=ds.find(o=>!o.off&&o.r===r&&o.c===c);
+   if(hit)shift(hit);
+   else if(t.length&&t[t.length-1]===S.turn){
+    if(S.sel&&S.sel.r===r&&S.sel.c===c)S.sel.k=S.sel.k%t.length+1;else S.sel={r,c,k:1};
+    S.sb=null}
+   else S.sel=null;
+   if(!hit)S.view=t.length?{r,c}:null}
+  else if(a==='lay'&&S.sel)S.sel.k=+d.k
+  else if(a==='off'){const o=dests(S.sel.r,S.sel.c,S.sel.k).filter(x=>x.off)[+d.i];if(o)shift(o)}
+  else if(a==='b'){const b=S.B.find(b=>b.id===+d.id);if(b&&movable(b)){S.sb=b.id;S.sel=null}else S.msg='That Boundary is stabilised.'}
+  else if(a==='pt'&&sb){const o=slides(sb).find(o=>o.x===+d.x&&o.y===+d.y);if(o)slide(sb,o)}
+  else if(a==='gk'&&S.sel){const n=S.cells[S.sel.r*9+S.sel.c].length;S.sel.k=Math.min(n,Math.max(1,S.sel.k+ +d.d))}}
+ R()});
+const pos=v=>(v/9*100)+'%';
+function R(){
+ const app=$('app');
+ const head=`<h1>QUANTA</h1><div class='sub'>Quantum Control</div>`;
+ if(!S){app.innerHTML=head+menuHTML();return}
+ if(0){app.innerHTML=head+`<div class="card"><p>A pass-and-play prototype of the full rules. Choose the number of players.</p><div class="row">${[2,3,4].map(n=>`<button class="go" data-a="new" data-n="${n}">${n} players</button>`).join('')}</div><div class="row"><button class="go" data-a="new" data-n="2" data-bot="1">Play the bot: Easy</button><button class="go" data-a="new" data-n="2" data-bot="2">Play the bot: Pro</button></div><div class='row'><button class='go' data-a='new' data-n='2' data-bot='1' data-tut='1'>Learn to play (guided game)</button></div><div class='row'><button data-a='host'>Host online game</button><input id='jc' maxlength='4' placeholder='Code' style='width:80px;margin:3px;padding:9px;border-radius:10px;border:2px solid #1fb8ff;background:#0d1f3a;color:#fff;text-transform:uppercase'><button data-a='join'>Join</button></div></div>
+ <div class="card"><b>How a turn works</b><ul><li>Take two Moves. Each is a Shift or a Slide.</li><li><b>Shift:</b> tap your Particles (tap again to take more from the top), then tap a green Square. Distance is the number of occupied Squares in the Field you leave.</li><li><b>Land</b> on an empty Square, or Bond on an occupied one if your group is at least as tall as the top layer there.</li><li><b>Slide:</b> tap a Boundary, then a green point. Boundaries stabilise when you finish with them.</li><li>Control three or more Singularities (the marked centre Squares), declare QUANTA, and still hold three at your next turn to win.</li></ul></div>`;return}
+ const s=S;if(s.les!==undefined&&!s.done&&LES[s.les].chk()){s.done=1;if(LES[s.les].fin)LES[s.les].fin()}
+ const pls=`<div class="pls">${Array.from({length:s.n},(_,i)=>`<div class="pl ${i===s.turn&&s.phase!=='over'?'on':''}" style="--c:${C[i]}"><b>${N[i]}${s.bot&&s.bot.includes(i)?' (Bot)':''}</b> ${cnt(i)} Sing.${s.phase==='setup'?' · '+s.left[i]+' to place':''}${s.decl&&s.decl.p===i?' · QUANTA-'+s.decl.X:''}</div>`).join('')}</div>`;
+ if(s.phase==='over'){
+  app.innerHTML=head+pls+`<div class="ban">${s.win>=0?N[s.win]+' wins!':'No one can move. Draw.'}</div>${s.wm?`<div class='msg'>${s.wm}</div>`:''}<div class="row"><button class="go" data-a="menu">New game</button></div>`+board();return}
+ let ctl='',st=s.phase==='setup'?`${N[s.turn]}: place a Boundary. Reserve: ${s.res}.`:`${N[s.turn]}: Move ${s.moves+1} of 2.`;
+ if(s.phase==='setup'){
+  if(s.pend!==null){const mx=1+Math.min(3,s.res);st=N[s.turn]+': choose the height of that Boundary.';ctl=`<div class="row"><span style="margin:9px 6px">Node height</span>${[1,2,3,4].filter(h=>h<=mx).map(h=>`<button class="go" data-a="h" data-h="${h}">${h}</button>`).join('')}</div>`}
+  else ctl='<div class="row"><span>White dots are Nodes. Place there to raise a Boundary.</span></div>'}
+ else if(s.sel){const t=s.cells[s.sel.r*9+s.sel.c],offs=dests(s.sel.r,s.sel.c,s.sel.k).filter(o=>o.off);
+  ctl=`<div class="row"><button data-a="gk" data-d="-1">−</button><span style="margin:9px 6px">Moving ${s.sel.k} of ${t.length}</span><button data-a="gk" data-d="1">+</button>${offs.map((o,i)=>`<button data-a="off" data-i="${i}">Off the Grid ${'↖↑↗←·→↙↓↘'[(o.dr+1)*3+o.dc+1]}</button>`).join('')}</div>`}
+ else if(s.sb!==null)ctl='<div class="row"><span>Tap a green point to Slide this Boundary.</span></div>';
+ else ctl='<div class="row"><span>Tap a Square to inspect it, your Particles to Shift, or a Boundary to Slide.</span></div>';
+ let cv='';const vw=s.phase==='play'?(s.sel?{r:s.sel.r,c:s.sel.c}:s.view):null;
+ if(vw){const t=s.cells[vw.r*9+vw.c];if(t.length){const k=s.sel&&s.sel.r===vw.r&&s.sel.c===vw.c?s.sel.k:0,mine=t[t.length-1]===s.turn;
+  cv=`<div class="card"><b>${t.length>1?'Cluster':'Particle'}</b>: ${t.length} Particle${t.length>1?'s':''}. Dominant Layer: ${domH(t)} ${N[t[t.length-1]]}.${mine?'<br>Tap a layer to move that many from the top.':''}<div class="stk">${Array.from({length:t.length},(_,j)=>{const x=t[t.length-1-j];return`<div class="lay${j<k?' in':''}" style="background:${C[x]}" ${mine?`data-a="lay" data-k="${j+1}"`:''}>${j===0?'top':j===t.length-1?'bottom':''}</div>`}).join('')}</div></div>`}}
+ app.innerHTML=head+pls+`<div class="msg${s.msg?' flash':''}"><b>${st}</b><br>${s.msg||''}</div>`+(s.les!==undefined?lesPanel():tip())+board()+ctl+cv+ex()+'<div class="row"><button data-a="menu">New game</button></div>'+fl();
+ botTick();
+}
+function board(){
+ const s=S,ds=s.sel&&s.phase==='play'&&!s.fin?dests(s.sel.r,s.sel.c,s.sel.k):[],sb=s.sb!==null?s.B.find(b=>b.id===s.sb):null,sd=sb?slides(sb):[];
+ let g='';
+ for(let r=0;r<9;r++)for(let c=0;c<9;c++){
+  const t=s.cells[r*9+c],top=t[t.length-1],isSel=s.sel&&s.sel.r===r&&s.sel.c===c,isD=ds.some(o=>!o.off&&o.r===r&&o.c===c);
+  const w=100/Math.max(1,t.length),grad=t.map((x,i)=>`${C[x]} ${i*w}% ${(i+1)*w}%`).join(',');
+  g+=`<div class="cell${r%3===1&&c%3===1?' s':''}${c%3===2&&c<8?' fr':''}${r%3===2&&r<8?' fb':''}${isSel?' sel':''}${isD?' dst':''}${hlc(r,c)}" data-a="cell" data-r="${r}" data-c="${c}">${t.length?`<i class="d" style="background:${C[top]}"></i>${t.length>1?`<em>${t.length}</em><u style="background:linear-gradient(90deg,${grad})"></u>`:''}`:''}</div>`}
+ let p='';
+ if(s.phase==='setup')for(let y=0;y<10;y++)for(let x=0;x<10;x++)if(!bAt(x,y))p+=`<button class="pt ${x%3===0&&y%3===0?'nd':'fa'}" style="left:${pos(x)};top:${pos(y)};margin:0" data-a="pt" data-x="${x}" data-y="${y}" aria-label="Place at ${x},${y}"></button>`;
+ sd.forEach(o=>p+=`<button class="pt hot" style="left:${pos(o.x)};top:${pos(o.y)};margin:0" data-a="pt" data-x="${o.x}" data-y="${o.y}" aria-label="Slide to ${o.x},${o.y}"></button>`);
+ (s.hls||[]).forEach((h,i)=>{if(h.p)p+=`<i class='pt ring r${i}' style='left:${pos(h.p[0])};top:${pos(h.p[1])}'></i>`});
+ s.B.forEach(b=>p+=`<button class="pt b${(s.hls||[]).some(h=>h.q&&h.q[0]===b.x&&h.q[1]===b.y)?' hln':''}${b.st!==null?' st':''}${s.sb===b.id?' sel':''}" style="left:${pos(b.x)};top:${pos(b.y)};margin:0;--c:${b.st!==null?C[b.st]:'#9aa3c7'}" data-a="b" data-id="${b.id}">${b.h}</button>`);
+ return`<div id="bd" class="${s.sel?'nob':''}"><div class="g">${g}</div>${p}</div>`}
+let HIST=[],MUTE=0,AC=null;
+const isBot=()=>S&&S.bot&&S.bot.includes(S.turn);
+function snd(a,ty,gv){if(MUTE)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();let t=AC.currentTime;a.forEach(([f,d])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ty||'triangle';o.frequency.value=f;g.gain.setValueAtTime(gv||.12,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d);t+=d*.8})}catch(e){}}
+const lg=t=>{S.log.push(t);if(S.log.length>60)S.log.shift()};
+function push(){HIST.push(structuredClone(S));if(HIST.length>40)HIST.shift()}
+function undo(){if(!HIST.length||isBot())return;clearTimeout(S.bt);S=HIST.pop();S.bt=0;S.pl=null}
+const fl=()=>{if(!S||!S.flash)return'';const e=Date.now()-S.flash.t;if(e>2500){S.flash=null;return''}return`<div class='qfl' style='--c:${C[S.flash.p]};animation-delay:-${e}ms'>QUANTA-${S.flash.X}<small>${N[S.flash.p].toUpperCase()} DECLARES!</small></div>`};
+const hlc=(r,c)=>{let s='';(S.hls||[]).forEach((h,i)=>{if(h.a){if(h.a[0]===r&&h.a[1]===c)s+=' ho ho'+i;if(h.b&&h.b[0]===r&&h.b[1]===c)s+=' hn hn'+i}});return s};
+const ex=()=>`<div class='row'><button data-a='undo' ${HIST.length&&!isBot()?'':'disabled'}>Undo</button><button data-a='mute'>${MUTE?'Sound off':'Sound on'}</button></div><details class='card'><summary>Move log</summary>${S.log.slice(-10).reverse().map(x=>`<div>${x}</div>`).join('')||'Nothing yet.'}</details>`;
+function tip(){if(!S||!S.tut||S.phase==='over')return'';let t;
+ if(S.phase==='setup')t=S.pend!==null?'Choose a height from 1 to 4. Taller Boundaries Slide further along Minor Channels.':'Welcome! First take turns placing Boundaries: neutral blockers that stop Shifts. White dots are Nodes, where you can raise a Boundary after placing it. Tap any dot to place one.';
+ else if(S.sel)t='Green Squares are legal landings. Your Shift Distance is the number of occupied Squares in the Field you leave. Tap a layer below to move more Particles from the top. Landing on an occupied Square is a Bond: your group must be at least as tall as the top layer there.';
+ else if(S.sb!==null)t='Green points show where this Boundary can Slide: any distance on a Major Channel, up to its Height on a Minor Channel. When you finish with a Boundary it becomes stabilised.';
+ else if(S.moves===1)t='One Move left this turn. Shift or Slide again.';
+ else if(S.decl)t='A QUANTA has been declared. To win, hold three Singularities (the marked centre Squares) at the start of your next turn. To break one, match it or beat it.';
+ else t='Your turn: take two Moves, each a Shift or a Slide. Tap one of your Particles to Shift, or a Boundary to Slide. Control three Singularities and QUANTA is declared for you.';
+ return`<div class='card' style='border-color:#ffd54a'>${t}</div>`}
+let M='home';
+const most=p=>{const c=cnt(p);if(c<3)return 0;for(let q=0;q<S.n;q++)if(q!==p&&cnt(q)>=c)return 0;return 1};
+const put=(r,c,...a)=>{S.cells[r*9+c]=a},bd=(x,y,h)=>S.B.push({id:S.id++,x,y,h,st:null});
+const LES=[
+{t:'The board',x:'The 9x9 Grid is split into nine Fields by the thick gold lines (Major Channels). The marked centre Square of each Field is a Singularity, your targets. Tap any Singularity.',ok:'Right. Control three Singularities to win. Purple and Blue Particles start in their own Fields.',set(){},chk:()=>S.tap&&S.tap[0]%3===1&&S.tap[1]%3===1},
+{t:'Placing Boundaries',x:'Players take turns placing neutral Boundaries that block Shifts. White dots are Nodes. Tap a Node, then raise its height to 2 or more.',ok:'Boundaries belong to nobody. Taller ones Slide further along Minor Channels.',set(){S.phase='setup';S.left=[9,0];S.res=18},chk:()=>S.B.some(b=>b.x%3===0&&b.y%3===0&&b.h>=2)},
+{t:'Shifting',x:'Tap a purple Particle. Your Shift Distance is the number of occupied Squares in its Field, which is 4 here. Shift it exactly that far in a straight line.',ok:'Distance counts occupied Squares, not Particles.',set(){[[0,0],[0,1],[1,0],[1,1]].forEach(([r,c])=>put(r,c,0))},chk:()=>S.tm>=1},
+{t:'Moving Groups and splitting',x:'Tap the stack of three, then tap a layer to choose how many to move from the top. Move 2 and leave 1 behind.',ok:'You can take any continuous group from the top. The rest stays.',set(){put(4,4,0,0,0);put(3,3,0);put(5,5,0)},chk:()=>S.cells[40].length===1&&S.cells.some((t,i)=>i!==40&&t.length===2)},
+{t:'Landing and Bonding',x:'Landing on an occupied Square is a Bond. Your group must be at least as tall as the top layer there. Shift your 2 stacked Particles 3 Squares east onto the blue pair.',ok:'Your group landed on top and now controls the Cluster.',set(){put(0,0,0,0);put(0,1,0);put(0,2,0);put(0,3,1,1)},chk:()=>S.cells.some(t=>t.length>=3&&t[t.length-1]===0&&t.includes(1))},
+{t:'Slides and Stabilisation',x:'Tap a Boundary, then a green point to Slide it. On a Major Channel (thick line) it can Slide any distance. On a Minor Channel (thin line) it can Slide up to its Height. When you finish with a Boundary it is stabilised.',ok:'The coloured ring shows it is stabilised: nobody else can move it until your next turn.',set(){bd(3,3,2);bd(6,3,3)},chk:()=>S.B.some(b=>b.st===0)},
+{t:'Controlling Singularities',x:'The colour on top of a Square controls it. Shift each purple Particle one Square onto a Singularity to control three.',ok:'Control three or more and you can declare QUANTA.',set(){put(1,0,0);put(4,3,0);put(7,6,0)},chk:()=>cnt(0)>=3},
+{t:'Declaring QUANTA',x:'Purple controls 3 Singularities and Blue only 2. Make any Move with your spare Particle in the top-left and QUANTA is declared for you.',ok:'QUANTA declared! Hold three at the start of your next turn to win. A rival who matches your count breaks it. One who beats it declares instead. You can only declare while holding the most Singularities.',set(){put(1,1,0);put(4,4,0);put(7,7,0);put(0,0,0);put(1,4,1);put(4,7,1)},chk:()=>S.tm>=1&&cnt(0)>=3,fin(){S.decl={p:0,X:cnt(0)};S.flash={p:0,X:cnt(0),t:Date.now()};snd([[523,.09],[659,.09],[784,.09],[1047,.09],[1319,.3]],'square',.2)}}];
+function lesson(i){newGame(2,0);const s=S;s.les=i;s.tm=0;s.done=0;s.turn=0;s.moves=0;s.phase='play';s.msg='';s.hls=[];s.tap=null;if(i>0)s.cells.forEach((_,j)=>s.cells[j]=[]);LES[i].set()}
+function lesPanel(){const L=LES[S.les];return`<div class='card' style='border-color:#ffd54a'><b>Lesson ${S.les+1} of 8: ${L.t}</b><p>${S.done?L.ok:L.x}</p><div class='row'>${S.done?(S.les<7?"<button class='go' data-a='next'>Next lesson</button>":"<button class='go' data-a='menu'>Finish</button>"):"<button data-a='redo'>Reset lesson</button>"}<button data-a='menu'>Quit</button></div></div>`}
+function oneMinute(){const k=[['Shift','move a Particle or Moving Group.'],['Slide','move a Boundary.'],['Moving Group','the Particle or continuous group selected for a Shift.'],['Cluster','Particles on one Square.'],['Dominant Layer','the top contiguous group of one colour.'],['Bond','a legal landing on an occupied Square.'],['Boundary','a neutral blocking piece.'],['Enclosure','four Boundaries on the corners of a Square, making it inaccessible.'],['Singularity','a central target Square.'],['QUANTA','the declared winning hold.']];
+ return`<div class='card'><b style='font:italic 800 28px Barlow Condensed,sans-serif;color:#42d4ff'>QUANTA IN ONE MINUTE</b><p style='font:italic 800 21px Barlow Condensed,sans-serif;color:#7dff98;margin:6px 0'>1 Landing Rule. 2 Moves. 3 Singularities.</p><ul><li>The colour on top controls a Cluster.</li><li>Take 2 Moves a turn, each a Shift or a Slide.</li><li>To land, Moving Group Height must be at least the target Dominant Layer Height.</li><li>Control 3 Singularities, and the most of anyone: declare QUANTA-X and place the Beacon.</li><li>Hold 3 until your next turn to win.</li></ul><b>Keywords</b><ul>${k.map(([a,b])=>`<li><b style='color:#42d4ff'>${a}:</b> ${b}</li>`).join('')}</ul><div class='row'><button data-a='m' data-m='home'>Back</button></div></div>`}
+async function share(){const u=location.href,t='Play QUANTA';try{if(navigator.share)await navigator.share({title:'Quanta',text:t,url:u});else{await navigator.clipboard.writeText(t+' '+u);alert('Link copied')}}catch(e){}}
+function menuHTML(){
+ if(M==='how')return oneMinute();
+ if(M==='x')return`<div class='card'><b>How to play</b><ul><li>Place neutral Boundaries, then take turns of two Moves, each a Shift or a Slide.</li><li><b>Shift</b> in a straight line, orthogonal or diagonal. Distance is the number of occupied Squares in the Field you leave.</li><li><b>Land</b> on an empty Square, or Bond on an occupied one if your group is at least as tall as the top layer.</li><li><b>Slide</b> Boundaries to block Shifts. They are stabilised when you finish with them.</li><li>Hold the most Singularities, at least three, and QUANTA is declared. A rival matching your count breaks it. Beating it lets them declare.</li><li>Still hold three at the start of your next turn to win.</li></ul><div class='row'><button data-a='m' data-m='home'>Back</button></div></div>`;
+ if(M==='play')return`<div class='card'><b>Local game</b><div class='row'>${[2,3,4].map(n=>`<button class='go' data-a='new' data-n='${n}'>${n} players</button>`).join('')}</div><b>Against the bot</b><div class='row'><button class='go' data-a='new' data-n='2' data-bot='1'>Easy</button><button class='go' data-a='new' data-n='2' data-bot='2'>Pro</button></div><div class='row'><button data-a='m' data-m='home'>Back</button></div></div>`;
+ return`<div class='card'><div class='row'><button class='go' data-a='m' data-m='play'>Play</button><button class='go' data-a='learn'>Learn to play</button><button data-a='m' data-m='how'>QUANTA in one minute</button><button data-a='share'>Share this game</button></div></div>`}
+/* ---- bot: searches both Moves of its turn, scores the result, and (Pro) checks the opponent's best reply ---- */
+const bsnap=()=>({c:S.cells.map(a=>a.slice()),b:S.B.map(b=>({...b}))});
+const bload=x=>{S.cells=x.c.map(a=>a.slice());S.B=x.b.map(b=>({...b}))};
+function bapply(m){if(m.t==='s'){const t=S.cells[m.r*9+m.c],g=t.splice(t.length-m.k,m.k);if(!m.o.off)S.cells[m.o.r*9+m.o.c].push(...g)}else{const b=S.B.find(b=>b.id===m.id);b.x=m.o.x;b.y=m.o.y;b.mv={axis:m.o.axis,dir:m.o.dir}}}
+function bgen(p){const o=[];for(let i=0;i<81;i++){const t=S.cells[i];if(t.length&&t[t.length-1]===p)for(let k=1;k<=t.length;k++)dests(i/9|0,i%9,k).forEach(d=>o.push({t:'s',r:i/9|0,c:i%9,k,o:d}))}
+ S.B.forEach(b=>{if(b.st===null||b.st===p)slides(b).forEach(d=>o.push({t:'b',id:b.id,o:d}))});return o}
+function ev(p){const sc=[];
+ for(let q=0;q<S.n;q++){let nc=0,dm=0,mat=0,pr=0;const tp=[];
+  S.cells.forEach((t,i)=>{if(t.length){mat+=t.filter(y=>y===q).length;if(t[t.length-1]===q)tp.push([i/9|0,i%9])}});
+  for(let r=1;r<9;r+=3)for(let c=1;c<9;c+=3){const t=S.cells[r*9+c];
+   if(t.length&&t[t.length-1]===q){nc++;dm+=Math.min(domH(t),4)}
+   else{let m=9;tp.forEach(([a,b])=>{m=Math.min(m,Math.max(Math.abs(a-r),Math.abs(b-c)))});pr+=Math.max(0,5-m)}}
+  sc.push(14*nc+(nc>=3?60:0)+mat+1.5*dm+.7*pr)}
+ let o=0;for(let q=0;q<S.n;q++)if(q!==p)o+=sc[q];return sc[p]-o/(S.n-1)}
+function evF(p){let v=ev(p);const c=cnt(p),d=S.decl;
+ if(d&&d.p!==p){const dx=cnt(d.p);if(c>=3&&c===dx)v+=20;else if(most(p)&&c>dx)v+=60;else if(dx>=3)v-=1e5}
+ else if(!d&&most(p))v+=90;return v}
+function bplan(p){const base=bsnap(),lv=S.lvl;let list=[];
+ const m1=bgen(p).map(m=>{bapply(m);const v=evF(p);bload(base);return{m,v}}).sort((a,b)=>b.v-a.v+(lv<2?Math.random()*8-4:0)).slice(0,lv<2?4:16);
+ for(const{m}of m1){bapply(m);const mid=bsnap(),g=bgen(p);
+  if(!g.length)list.push({pl:[m],v:evF(p)});
+  else if(lv<2){const pk=g.map(n=>{bapply(n);const v=evF(p);bload(mid);return{n,v}}).sort((a,b)=>b.v-a.v+Math.random()*8-4)[0];list.push({pl:[m,pk.n],v:pk.v})}
+  else for(const n of g){bapply(n);list.push({pl:[m,n],v:evF(p)});bload(mid)}
+  bload(base)}
+ list.sort((a,b)=>b.v-a.v);
+ if(lv>1){const nx=(p+1)%S.n;
+  list=list.slice(0,8).map(x=>{x.pl.forEach(bapply);const b0=ev(nx);let mx=b0;S.turn=nx;
+   bgen(nx).forEach(n=>{const s2=bsnap();bapply(n);mx=Math.max(mx,ev(nx));bload(s2)});
+   S.turn=p;x.v-=.5*(mx-b0);bload(base);return x}).sort((a,b)=>b.v-a.v)}
+ bload(base);return list[0]?list[0].pl:[]}
+function botTick(){if(!S||!S.bot||S.phase==='over'||!S.bot.includes(S.turn)||S.bt)return;
+ S.bt=setTimeout(()=>{if(!S)return;S.bt=0;botStep();R()},S.phase==='play'?(S.moves===0?1500:2600):700)}
+function botStep(){const p=S.turn;
+ if(S.phase==='setup'){
+  if(S.pend!==null){setH(S.lvl>1?[2,3,3,4][Math.random()*4|0]:1+(Math.random()*3|0));return}
+  let best=null,bs=-1e9;for(let y=0;y<10;y++)for(let x=0;x<10;x++)if(!bAt(x,y)){const sc=-Math.abs(x-4.5)-Math.abs(y-4.5)+(x%3===0&&y%3===0?2:0)+Math.random()*3;if(sc>bs){bs=sc;best=[x,y]}}
+  place(best[0],best[1]);return}
+ if(!S.pl)S.pl=bplan(p);
+ const m=S.pl.shift();if(!m){S.pl=null;return}
+ if(m.t==='s'){S.sel={r:m.r,c:m.c,k:m.k};shift(m.o)}else slide(S.B.find(b=>b.id===m.id),m.o)}
+if(location.hash==='#learn'){lesson(0)}else if(location.hash==='#how'){M='how'}
+R();
+</script></body></html>
